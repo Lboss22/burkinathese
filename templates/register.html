@@ -1,0 +1,91 @@
+<!-- templates/register.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Partage de Thèses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <nav class="navbar bg-burkina-red shadow-md">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center py-4">
+            <a href="{{ url_for('index') }}" class="navbar-brand text-burkina-gold text-3xl font-bold rounded-md p-2">
+                Theses Burkina
+            </a>
+            <div class="flex-grow"></div>
+            <ul class="navbar-nav flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 mt-4 md:mt-0">
+                <li class="nav-item">
+                    <a href="{{ url_for('index') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('browse_theses') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Parcourir les Thèses</a>
+                </li>
+                {% if session.get('logged_in') %}
+                <li class="nav-item">
+                    <a href="{{ url_for('dashboard') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Tableau de Bord</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('upload_thesis') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Télécharger une Thèse</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('logout') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Déconnexion</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{{ url_for('login') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('register') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Inscription</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h1 class="text-3xl font-bold text-center text-burkina-green mb-6">Inscription</h1>
+
+            <!-- Messages Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mb-4">
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }} rounded-lg p-3 mb-2 text-center">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="form-group mb-4">
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Nom d'utilisateur:</label>
+                    <input type="text" id="username" name="username" required
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="form-group mb-6">
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Mot de passe:</label>
+                    <input type="password" id="password" name="password" required
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="btn btn-primary w-full py-2 px-4 rounded-lg text-lg">S'inscrire</button>
+                </div>
+                <p class="text-center text-gray-600 text-sm mt-4">
+                    Déjà un compte ? <a href="{{ url_for('login') }}" class="text-burkina-green hover:underline">Connectez-vous ici</a>.
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-burkina-green text-white text-center py-6 mt-auto">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Theses Burkina. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>

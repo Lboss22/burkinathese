@@ -1,0 +1,18 @@
+{
+    "users": {
+        "Loic": {
+            "password": "scrypt:32768:8:1$EgLLBtAUVsoLZELg$adcb4a0dc524b06870aa848670011e55e7b3405b45a86758ca48773bd6630477c71f394d8759df4b97e9d6b6a6fd85fecbe165ac3af7f96a1ad41f9f48ee3b90"
+        }
+    },
+    "theses": [
+        {
+            "id": 1,
+            "title": "Devoir de virologie",
+            "author": "Loic",
+            "abstract": "dev",
+            "filename": "20250705021851_WhatsApp Image 2025-07-02 \u00e0 12.52.59_30887b48.pdf",
+            "uploader": "Loic",
+            "upload_date": "2025-07-05 02:18:51"
+        }
+    ]
+}

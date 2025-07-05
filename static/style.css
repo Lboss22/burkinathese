@@ -1,0 +1,259 @@
+/* static/style.css */
+
+/* Import de la police Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Couleurs du Burkina Faso */
+:root {
+    --color-red: #EF2B2D; /* Rouge */
+    --color-green: #009E49; /* Vert */
+    --color-gold: #FCD116; /* Jaune/Or */
+    --color-dark-gold: #DAA520; /* Or plus foncé pour les accents */
+    --color-text-dark: #333;
+    --color-text-light: #f9f9f9;
+    --color-bg-light: #f0f0f0;
+    --color-bg-dark: #2c3e50;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text-dark);
+    background-color: var(--color-bg-light);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Styles pour les messages flash */
+.flash-message {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.flash-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.flash-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.flash-message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.flash-message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Styles Tailwind personnalisés pour les couleurs du Burkina Faso */
+.bg-burkina-red {
+    background-color: var(--color-red);
+}
+
+.bg-burkina-green {
+    background-color: var(--color-green);
+}
+
+.bg-burkina-gold {
+    background-color: var(--color-gold);
+}
+
+.text-burkina-red {
+    color: var(--color-red);
+}
+
+.text-burkina-green {
+    color: var(--color-green);
+}
+
+.text-burkina-gold {
+    color: var(--color-gold);
+}
+
+.border-burkina-red {
+    border-color: var(--color-red);
+}
+
+.border-burkina-green {
+    border-color: var(--color-green);
+}
+
+.border-burkina-gold {
+    border-color: var(--color-gold);
+}
+
+/* Styles généraux pour les liens et boutons */
+a {
+    color: var(--color-green);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--color-gold);
+    color: var(--color-text-dark);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-dark-gold);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--color-green);
+    color: var(--color-text-light);
+}
+
+.btn-secondary:hover {
+    background-color: #007a38; /* Vert plus foncé */
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: var(--color-red);
+    color: var(--color-text-light);
+}
+
+.btn-danger:hover {
+    background-color: #c02122; /* Rouge plus foncé */
+    transform: translateY(-2px);
+}
+
+/* Formulaires */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group textarea,
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    box-sizing: border-box; /* Inclut le padding dans la largeur */
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--color-red);
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: var(--color-gold);
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    margin-right: 2rem;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    color: var(--color-text-light);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-gold);
+    text-decoration: none;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Cartes pour les thèses */
+.thesis-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease;
+}
+
+.thesis-card:hover {
+    transform: translateY(-5px);
+}
+
+.thesis-card h3 {
+    color: var(--color-green);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.thesis-card p {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.thesis-card .abstract {
+    font-size: 0.95rem;
+    color: #666;
+    margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+    }
+    .navbar-nav .nav-item {
+        margin-left: 0;
+        margin-bottom: 0.75rem;
+    }
+    .container {
+        padding: 1rem;
+    }
+}

@@ -1,0 +1,104 @@
+<!-- templates/upload.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Télécharger une Thèse - Partage de Thèses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <nav class="navbar bg-burkina-red shadow-md">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center py-4">
+            <a href="{{ url_for('index') }}" class="navbar-brand text-burkina-gold text-3xl font-bold rounded-md p-2">
+                Theses Burkina
+            </a>
+            <div class="flex-grow"></div>
+            <ul class="navbar-nav flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 mt-4 md:mt-0">
+                <li class="nav-item">
+                    <a href="{{ url_for('index') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('browse_theses') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Parcourir les Thèses</a>
+                </li>
+                {% if session.get('logged_in') %}
+                <li class="nav-item">
+                    <a href="{{ url_for('dashboard') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Tableau de Bord</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('upload_thesis') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Télécharger une Thèse</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('logout') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Déconnexion</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{{ url_for('login') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('register') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Inscription</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 py-8 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl">
+            <h1 class="text-3xl font-bold text-center text-burkina-green mb-6">Télécharger une Nouvelle Thèse</h1>
+
+            <!-- Messages Flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mb-4">
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }} rounded-lg p-3 mb-2 text-center">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('upload_thesis') }}" enctype="multipart/form-data">
+                <div class="form-group mb-4">
+                    <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Titre de la Thèse:</label>
+                    <input type="text" id="title" name="title" required
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="author" class="block text-gray-700 text-sm font-bold mb-2">Auteur(s):</label>
+                    <input type="text" id="author" name="author" required
+                           class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="abstract" class="block text-gray-700 text-sm font-bold mb-2">Résumé:</label>
+                    <textarea id="abstract" name="abstract" rows="5" required
+                              class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+                <div class="form-group mb-6">
+                    <label for="thesis_file" class="block text-gray-700 text-sm font-bold mb-2">Fichier PDF de la Thèse:</label>
+                    <input type="file" id="thesis_file" name="thesis_file" accept=".pdf" required
+                           class="block w-full text-sm text-gray-500
+                                 file:mr-4 file:py-2 file:px-4
+                                 file:rounded-full file:border-0
+                                 file:text-sm file:font-semibold
+                                 file:bg-burkina-gold file:text-burkina-dark
+                                 hover:file:bg-burkina-dark-gold">
+                    <p class="mt-1 text-sm text-gray-500">Seuls les fichiers PDF sont acceptés.</p>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="btn btn-secondary w-full py-2 px-4 rounded-lg text-lg">Télécharger la Thèse</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-burkina-green text-white text-center py-6 mt-auto">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Theses Burkina. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>

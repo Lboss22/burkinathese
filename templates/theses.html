@@ -1,0 +1,100 @@
+<!-- templates/theses.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcourir les Thèses - Partage de Thèses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <nav class="navbar bg-burkina-red shadow-md">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center py-4">
+            <a href="{{ url_for('index') }}" class="navbar-brand text-burkina-gold text-3xl font-bold rounded-md p-2">
+                Theses Burkina
+            </a>
+            <div class="flex-grow"></div>
+            <ul class="navbar-nav flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 mt-4 md:mt-0">
+                <li class="nav-item">
+                    <a href="{{ url_for('index') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('browse_theses') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Parcourir les Thèses</a>
+                </li>
+                {% if session.get('logged_in') %}
+                <li class="nav-item">
+                    <a href="{{ url_for('dashboard') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Tableau de Bord</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('upload_thesis') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Télécharger une Thèse</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('logout') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Déconnexion</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{{ url_for('login') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('register') }}" class="nav-link text-white hover:text-burkina-gold transition duration-300">Inscription</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- Messages Flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-4">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }} rounded-lg p-3 mb-2 text-center">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h1 class="text-4xl font-bold text-burkina-green mb-8 text-center">Toutes les Thèses Disponibles</h1>
+
+        {% if theses %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for thesis in theses %}
+                    <div class="thesis-card bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-burkina-green mb-2">{{ thesis.title }}</h3>
+                        <p class="text-gray-700 mb-1"><strong>Auteur:</strong> {{ thesis.author }}</p>
+                        <p class="text-gray-700 mb-1"><strong>Téléchargé par:</strong> {{ thesis.uploader }}</p>
+                        <p class="text-gray-700 mb-1"><strong>Date:</strong> {{ thesis.upload_date }}</p>
+                        <p class="text-gray-600 text-sm mt-3">
+                            <span class="font-semibold">Résumé:</span>
+                            {{ thesis.abstract | truncate(150, True, '...') }}
+                        </p>
+                        <div class="mt-4 flex justify-end">
+                            <a href="{{ url_for('download_file', filename=thesis.filename) }}"
+                               class="btn btn-primary text-sm px-4 py-2 rounded-md">
+                                Télécharger PDF
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-lg text-gray-600 text-center">Aucune thèse n'a encore été téléchargée. Soyez le premier !</p>
+            <div class="text-center mt-6">
+                <a href="{{ url_for('upload_thesis') }}" class="btn btn-secondary text-lg px-6 py-3 rounded-lg">
+                    Télécharger une Thèse
+                </a>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer class="bg-burkina-green text-white text-center py-6 mt-auto">
+        <div class="container mx-auto">
+            <p>&copy; 2025 Theses Burkina. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
